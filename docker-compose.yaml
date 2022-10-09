@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    volumes:
+    - .:/root
+    env_file:
+    - .env
+    command:
+    - python3
+    - manage.py
+    - runserver
+    - 0.0.0.0:8080
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+    - 8080:8080
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: cdk_commander
+      MYSQL_USER: cdk_commander_admin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+    - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

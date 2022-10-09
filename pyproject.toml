@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "cdk-commander"
+version = "0.1.0"
+description = ""
+authors = ["bbrfkr <bbrfkr@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "cdk_commander"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^4.1.2"
+mysqlclient = "^2.1.1"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^5.0.4"
+isort = "^5.10.1"
+black = "^22.10.0"
+mypy = "^0.982"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
