@@ -2,14 +2,19 @@ version: '3.9'
 
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-local
     volumes:
-    - .:/root
-    env_file:
-    - .env
+    - .:/root/cdk-commander
+    # environment:
+    #   DOTENV_FILE: .env
+    entrypoint:
+    - poetry
+    - run
     command:
     - python3
-    - manage.py
+    - cdk_commander/manage.py
     - runserver
     - 0.0.0.0:8080
     depends_on:

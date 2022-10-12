@@ -1,0 +1,12 @@
+ARG IMAGE=python:3.10-bullseye
+
+FROM $IMAGE AS builder
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH=/root/.local/bin:$PATH
+WORKDIR /root/cdk-commander
+COPY . /root/cdk-commander
+RUN apt-get update && \
+    apt-get install -y libmariadb-dev && \
+    apt-get clean && \
+    rm -rf /tmp/* /var/lib/apt/lists/*
+RUN poetry install
